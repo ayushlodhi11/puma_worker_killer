@@ -15,7 +15,7 @@ module PumaWorkerKiller
     def reap
       return false if @cluster.workers_stopped?
       if (total = get_total_memory) > @max_ram
-        @cluster.master.log "PumaWorkerKiller: Out of memory. #{@cluster.workers.count} workers consuming total: #{total} mb out of max: #{@max_ram} mb. Sending TERM to pid #{@cluster.largest_worker.pid} consuming #{@cluster.largest_worker_memory} mb."
+        @cluster.master.log "#{Time.now} PumaWorkerKiller: Out of memory. #{@cluster.workers.count} workers consuming total: #{total} mb out of max: #{@max_ram} mb. Sending TERM to pid #{@cluster.largest_worker.pid} consuming #{@cluster.largest_worker_memory} mb."
 
         # Fetch the largest_worker so that both `@pre_term` and `term_worker` are called with the same worker
         # Avoids a race condition where:
@@ -29,7 +29,7 @@ module PumaWorkerKiller
         @cluster.term_worker(largest_worker)
 
       elsif @reaper_status_logs
-        @cluster.master.log "PumaWorkerKiller: Consuming #{total} mb with master and #{@cluster.workers.count} workers."
+        @cluster.master.log "#{Time.now} PumaWorkerKiller: Consuming #{total} mb with master and #{@cluster.workers.count} workers."
       end
     end
   end
