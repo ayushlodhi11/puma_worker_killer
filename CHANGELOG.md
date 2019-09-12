@@ -1,6 +1,10 @@
-## 0.1.1
+## 0.1.1.1
 
 - Added Time in log
+
+## 0.1.1
+
+- Allow PWK to be used with Puma 4 (#72)
 
 ## 0.1.0
 
